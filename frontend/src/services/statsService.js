@@ -1,12 +1,11 @@
 import axios from 'axios';
-const baseUrl = '/stats';
+const baseUrl = '/api/results';
 
 const getAll = () => {
   const res = axios
     .get(baseUrl)
     .then((response) => response.data)
     .catch((error) => error.response.data);
-
   return res;
 };
 
