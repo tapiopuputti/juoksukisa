@@ -1,11 +1,17 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Spinner from 'react-bootstrap/Spinner';
 
 const ResultsTable = ({ data }) => {
   //let timesArray = data.map((el) => el);
   //timesArray.sort((a, b) => a.value - b.value);
-
-  return (
+  return !data.data ? (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Spinner animation='border' role='status'>
+        <span className='sr-only'>Loading...</span>
+      </Spinner>
+    </div>
+  ) : (
     <Table striped bordered hover>
       <thead>
         <tr>

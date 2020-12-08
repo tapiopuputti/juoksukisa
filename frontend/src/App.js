@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ResultsTable from './components/ResultsTable';
 import Container from 'react-bootstrap/Container';
-import getAll from './services/statsService';
+import getAll from './services/resultsService';
 
 const App = () => {
   const [results, setResults] = useState(null);
 
   useEffect(() => {
-    const res = getAll();
+    const res = async () => {
+      const data = await getAll();
+      return data;
+    };
     setResults(res);
   }, []);
 
