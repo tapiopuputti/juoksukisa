@@ -7,11 +7,11 @@ const App = () => {
   const [results, setResults] = useState(null);
 
   useEffect(() => {
-    const res = async () => {
-      const data = await getAll();
-      return data;
+    const fetchData = async () => {
+      const result = await getAll();
+      setResults(result.data);
     };
-    setResults(res);
+    fetchData();
   }, []);
 
   return (

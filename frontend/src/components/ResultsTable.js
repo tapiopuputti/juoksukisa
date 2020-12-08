@@ -3,9 +3,14 @@ import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 
 const ResultsTable = ({ data }) => {
-  //let timesArray = data.map((el) => el);
-  //timesArray.sort((a, b) => a.value - b.value);
-  return !data.data ? (
+  const awards = ['gold', 'silver', '#cd7f32'];
+  const changeTextColor = (e) => {
+    e.target.style.color === 'red'
+      ? (e.target.style.color = 'black')
+      : (e.target.style.color = 'red');
+  };
+
+  return !data ? (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Spinner animation='border' role='status'>
         <span className='sr-only'>Loading...</span>
@@ -22,36 +27,46 @@ const ResultsTable = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        <tr style={{ backgroundColor: 'gold' }}>
-          <td>1</td>
-          <td>Mark</td>
-          <td>01:55:22</td>
-          <td>10km</td>
-        </tr>
-        <tr style={{ backgroundColor: 'silver' }}>
-          <td>2</td>
-          <td>Jarkko</td>
-          <td>02:00:11</td>
-          <td>10km</td>
-        </tr>
-        <tr style={{ backgroundColor: '#cd7f32' }}>
-          <td>3</td>
-          <td>Jooseppi</td>
-          <td>02:03:53</td>
-          <td>10km</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Kustaa</td>
-          <td>03:03:53</td>
-          <td>10km</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Pena</td>
-          <td>03:33:11</td>
-          <td>10km</td>
-        </tr>
+        {data[0].map((el, index) => {
+          if (index < 3) {
+            return (
+              <tr key={index} style={{ backgroundColor: awards[index] }}>
+                <td>{index + 1}</td>
+                <td>
+                  <p
+                    style={{ cursor: 'pointer', color: 'black', width: '30%' }}
+                    onMouseEnter={changeTextColor}
+                    onMouseLeave={changeTextColor}
+                    onClick={() => {
+                      return console.log('Hello world!');
+                    }}>
+                    {el.name}
+                  </p>
+                </td>
+                <td>{el.result}</td>
+                <td>{el.distance}</td>
+              </tr>
+            );
+          }
+          return (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>
+                <p
+                  style={{ cursor: 'pointer', color: 'black', width: '30%' }}
+                  onMouseEnter={changeTextColor}
+                  onMouseLeave={changeTextColor}
+                  onClick={() => {
+                    return console.log('Hello world!');
+                  }}>
+                  {el.name}
+                </p>
+              </td>
+              <td>{el.result}</td>
+              <td>{el.distance}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );
