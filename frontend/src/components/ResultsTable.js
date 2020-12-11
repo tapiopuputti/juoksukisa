@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
+import ModalComponent from './ModalComponent';
 
 const ResultsTable = ({ data }) => {
+  const [participant, setParticipant] = useState({});
+  const [modalShow, setModalShow] = useState(false);
+
   const awards = ['gold', 'silver', '#cd7f32'];
   const changeTextColor = (e) => {
     e.target.style.color === 'red'
@@ -17,20 +21,50 @@ const ResultsTable = ({ data }) => {
       </Spinner>
     </div>
   ) : (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nimi</th>
-          <th>Tulos</th>
-          <th>Matka</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data[0].map((el, index) => {
-          if (index < 3) {
+    <div>
+      <ModalComponent
+        participant={participant}
+        show={modalShow}
+        setShow={setModalShow}
+      />
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nimi</th>
+            <th>Tulos</th>
+            <th>Matka</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data[0].map((el, index) => {
+            if (index < 3) {
+              return (
+                <tr key={index} style={{ backgroundColor: awards[index] }}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <p
+                      style={{
+                        cursor: 'pointer',
+                        color: 'black',
+                        width: '30%',
+                      }}
+                      onMouseEnter={changeTextColor}
+                      onMouseLeave={changeTextColor}
+                      onClick={() => {
+                        setParticipant(el);
+                        setModalShow(true);
+                      }}>
+                      {el.name}
+                    </p>
+                  </td>
+                  <td>{el.result}</td>
+                  <td>{el.distance}</td>
+                </tr>
+              );
+            }
             return (
-              <tr key={index} style={{ backgroundColor: awards[index] }}>
+              <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   <p
@@ -38,7 +72,8 @@ const ResultsTable = ({ data }) => {
                     onMouseEnter={changeTextColor}
                     onMouseLeave={changeTextColor}
                     onClick={() => {
-                      return console.log('Hello world!');
+                      setParticipant(el);
+                      setModalShow(true);
                     }}>
                     {el.name}
                   </p>
@@ -47,28 +82,10 @@ const ResultsTable = ({ data }) => {
                 <td>{el.distance}</td>
               </tr>
             );
-          }
-          return (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
-                <p
-                  style={{ cursor: 'pointer', color: 'black', width: '30%' }}
-                  onMouseEnter={changeTextColor}
-                  onMouseLeave={changeTextColor}
-                  onClick={() => {
-                    return console.log('Hello world!');
-                  }}>
-                  {el.name}
-                </p>
-              </td>
-              <td>{el.result}</td>
-              <td>{el.distance}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+          })}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 
