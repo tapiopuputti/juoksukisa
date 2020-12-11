@@ -1,4 +1,4 @@
-class dict_db:
+class dict_database:
     def __init__(self):
         self.results = [
             {
@@ -39,9 +39,5 @@ class dict_db:
             }
         ]
 
-    def get_dictionary_data(self):
-        return sort_list(self.results)
-
-    
-    def sort_list(self, results):
-        return results.sort(key = lambda x: x['result'])
+    def sort_list(self):
+        return self.results.sort(key = lambda x: x['result'])
