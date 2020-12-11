@@ -1,4 +1,6 @@
 import json
+import sys
+from os import path
 
 class dict_database:
     def __init__(self):
@@ -11,14 +13,16 @@ class dict_database:
 
     def write_json(self):
         # Write results to json file
-        with open('results.json', 'w') as file_out:
+        with open(path.join(sys.path[0], 'results.json'), 'w') as file_out:
             json.dump(self.results, file_out)
 
     def read_json(self):
         # Read results from json file
-        with open('results.json','r') as file_in:
+        with open(path.join(sys.path[0], 'results.json'),'r') as file_in:
             loaded_DB = json.load(file_in)
             return loaded_DB
+
+
 
 if __name__ == '__main__':
     # Initialize results data and write it to json file "results.json"
@@ -67,5 +71,5 @@ if __name__ == '__main__':
         }
     ]
 
-    with open('results.json', 'w') as file_out:
+    with open(path.join(sys.path[0], 'results.json'), 'w') as file_out:
         json.dump(results, file_out)
