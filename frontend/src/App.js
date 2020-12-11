@@ -21,8 +21,9 @@ const App = () => {
           marginBottom: '30px',
           marginTop: '20px',
           textAlign: 'center',
+          textDecoration: 'underline',
         }}>
-        Jukolanmäen juoksut 2020
+        JUKOLANMÄEN JUOKSUT 2020
       </h1>
       <ResultsTable data={results} />
     </Container>
