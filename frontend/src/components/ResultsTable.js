@@ -64,7 +64,7 @@ const ResultsTable = ({ data }) => {
               );
             }
             return (
-              <tr key={index}>
+              <tr key={index} style={{ backgroundColor: 'white' }}>
                 <td>{index + 1}</td>
                 <td>
                   <p
